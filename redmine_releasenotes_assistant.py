@@ -16,6 +16,7 @@ class RedmineReleaseAssistant:
         self.issues = []
         self.issues_data = {}
         self.release_notes = {}
+        self.notes_title = settings['notes_title']
         self.main_tracker = settings['main_tracker']
         self.category_other = settings['category_other']
         self.include_parent_in_relations = settings['include_parent_in_relations']
@@ -224,8 +225,9 @@ class RedmineReleaseAssistant:
                 for related in issue_data['relations']:
                     related_issues.add(related['related_id'])
 
-                for child in issue_data['children']:
-                    related_issues.add(child['child_id'])
+                if include_parent:
+                    for child in issue_data['children']:
+                        related_issues.add(child['child_id'])
                 
                 issue_groups.append(related_issues.intersection(issues))
                 issues_from_other_versions += related_issues.difference(issues)
@@ -336,7 +338,7 @@ class RedmineReleaseAssistant:
     def release_notes_as_textile(self):
 
         release_notes = ''        
-        release_notes += 'h2. Новое в версии %s\n\n{{>toc}}\n\n' % self.version_name
+        release_notes += 'h2. %s %s\n\n{{>toc}}\n\n' % (self.notes_title, self.version_name)
 
         for section in self.release_notes['sections']:
 
