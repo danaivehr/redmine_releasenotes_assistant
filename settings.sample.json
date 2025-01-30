@@ -1,0 +1,11 @@
+{
+    "redmine_host": "http://your.redmine.instance",
+    "api_key": "",
+    "project_id": "identifier",
+    "version_name": "name",
+    "main_tracker": "name",
+    "category_other": "name",
+    "include_parent_in_relations": false,
+    "gpt_api_key": "",
+    "gpt_model": "gpt-4o-mini"
+}
